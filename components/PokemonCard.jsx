@@ -1,18 +1,48 @@
 import { Card, Grid, Row, Text, Button } from '@nextui-org/react';
+import { formatter } from "../utils/formater"
+
+import confetti from 'canvas-confetti'
+import { useStore } from '../store/billeteraStore';
+import { useMemo } from 'react';
+import Swal from 'sweetalert2'
 
 
 export const PokemonCard = ({ pokemon, currency }) => {
 
-  const { name, id, img } = pokemon
-  const price = (Math.random() * 150).toFixed(2)
-  const currencyIndex = Math.round(Math.random() * 5)
-  const moneyCurrency = Object.keys(currency)[currencyIndex]
-  const priceMXN = ( (price / currency[`${moneyCurrency}`]) * currency['MXN'] ).toFixed(2)
+  const { saldo, comprar } = useStore()
 
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  })
+  const { name, id, img } = pokemon
+  const price = useMemo(() => (Math.random() * 150).toFixed(2), [])
+  const currencyIndex = useMemo(() => Math.round(Math.random() * 5), [])
+  const moneyCurrency = useMemo(() => Object.keys(currency)[currencyIndex], [])
+  const priceMXN = useMemo(() => ( (price / currency[`${moneyCurrency}`]) * currency['MXN'] ).toFixed(2), [])
+
+  const handleClick = () => {
+
+    if ( priceMXN > saldo ){
+      Swal.fire({
+        title: 'Saldo insuficiente',
+        text: 'Recarga tu saldo antes de realizar la compra',
+        icon: 'error',
+        confirmButtonText: 'Entendido'
+      })
+      return
+    }
+
+    comprar( priceMXN )
+
+    confetti({
+      zIndex: 999,
+      particleCount: 100,
+      spread: 160,
+      angle: -100,
+      origin: {
+        x: 1,
+        y: 0,
+      }
+    })
+
+  }
 
 
   return (
@@ -39,6 +69,7 @@ export const PokemonCard = ({ pokemon, currency }) => {
             <Button
               color="gradient"
               ghost
+              onClick={ handleClick }
             >
               Comprar
             </Button>

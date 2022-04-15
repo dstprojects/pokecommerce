@@ -1,4 +1,35 @@
+a{
+  text-decoration: none;
+}
+
+nav{
+  width: 100%; 
+  background-color: rgb(69, 3, 113); 
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+nav span{
+  cursor: pointer;
+}
+
+nav span:hover{
+  opacity: 0.8;
+}
+
+h2{
+  width: 100%;
+  text-align: center;
+}
+
 h3{
+  margin-top: 100px;
   width: 100%;
   text-align: center;
   margin: 20px 0;

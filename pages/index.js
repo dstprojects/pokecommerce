@@ -1,7 +1,9 @@
-import { Grid } from '@nextui-org/react'
+import { Grid, Spacer } from '@nextui-org/react'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
+import { Navbar } from '../components/Navbar'
 import { PokemonCard } from '../components/PokemonCard'
+import { useStore } from '../store/billeteraStore'
 
 const letras = ['a','e','i','o', 'u']
 
@@ -26,17 +28,19 @@ export default function HomePage({pokemons, currency}) {
       <Head>
         <title>PokEcommerce</title>
       </Head>
-      <h1>PokEcommerce</h1>
+      <Navbar />
+      <div style={{height: '100px'}}></div>
       {
         letra && 
         <h3>El mejor lugar para comprar Pokémons que contienen la letra "{`${ letra.toUpperCase() }`}"</h3>
       }
+      
       <Grid.Container gap={ 2 } justify='flex-start'>
         {
           pokemonList.map((pokemon) => (
             <PokemonCard pokemon={ pokemon } key={ pokemon.id } currency={ currency } />
-          ))
-        }
+            ))
+          }
       </Grid.Container>
     </>
   )
@@ -47,8 +51,8 @@ export const getStaticProps = async (ctx) => {
   const pokemonResp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
   const { results } = await pokemonResp.json()
 
-  const currencyResp = await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${ process.env.CURRENCY_API_KEY }&symbols=USD,AUD,CAD,PLN,MXN`)
-  const { rates } = await currencyResp.json()
+  // const currencyResp = await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${ process.env.CURRENCY_API_KEY }&symbols=USD,AUD,CAD,PLN,MXN`)
+  // const { rates } = await currencyResp.json()
 
   const pokemons = results.map((pokemon, index) => {
     return {
@@ -59,7 +63,15 @@ export const getStaticProps = async (ctx) => {
     
   })
 
-  const currency = {...rates, EUR: 1}
+  // const currency = {...rates, EUR: 1}
+  const currency = {
+    "USD": 1.082778,
+    "AUD": 1.459474,
+    "CAD": 1.365172,
+    "PLN": 4.641275,
+    "MXN": 21.65121,
+    "EUR": 1
+  }
 
   return {
     props: {
