@@ -1,9 +1,8 @@
-import { Grid, Spacer } from '@nextui-org/react'
+import { Grid } from '@nextui-org/react'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Navbar } from '../components/Navbar'
 import { PokemonCard } from '../components/PokemonCard'
-import { useStore } from '../store/billeteraStore'
 
 const letras = ['a','e','i','o', 'u']
 
