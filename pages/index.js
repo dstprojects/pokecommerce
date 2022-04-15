@@ -32,7 +32,7 @@ export default function HomePage({pokemons, currency}) {
       <div style={{height: '100px'}}></div>
       {
         letra && 
-        <h3>El mejor lugar para comprar Pokémons que contienen la letra "{`${ letra.toUpperCase() }`}"</h3>
+        <h3>El mejor lugar para comprar Pokémons que contienen la letra {`"${ letra.toUpperCase() }"`}</h3>
       }
       
       <Grid.Container gap={ 2 } justify='flex-start'>
