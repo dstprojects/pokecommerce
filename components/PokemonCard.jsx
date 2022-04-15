@@ -46,7 +46,7 @@ export const PokemonCard = ({ pokemon, currency }) => {
 
 
   return (
-    <Grid xs={ 6 } sm={ 3 } md={ 2 } xl={ 1 } key={ id }>
+    <Grid xs={ 12 } sm={ 6 } md={ 4 } xl={ 3 } key={ id }>
       <Card 
         hoverable 
       >
@@ -55,6 +55,7 @@ export const PokemonCard = ({ pokemon, currency }) => {
             src={ img }
             width="100%"
             height={ 140 }
+            style={{ padding: '20px 0 0 0 '}}
           />
         </Card.Body>
         <Card.Footer style={{ display: 'flex', flexDirection: 'column'}}>
@@ -65,7 +66,7 @@ export const PokemonCard = ({ pokemon, currency }) => {
               <Text>{ formatter.format(priceMXN) } MXN</Text>
             </div>
           </Row>
-          <Row css={{ width: '100%', justifyContent: 'center'}}>
+          <Row css={{ width: '100%', justifyContent: 'center', margin: '20px 0'}}>
             <Button
               color="gradient"
               ghost

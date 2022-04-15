@@ -51,8 +51,8 @@ export const getStaticProps = async (ctx) => {
   const pokemonResp = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
   const { results } = await pokemonResp.json()
 
-  // const currencyResp = await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${ process.env.CURRENCY_API_KEY }&symbols=USD,AUD,CAD,PLN,MXN`)
-  // const { rates } = await currencyResp.json()
+  const currencyResp = await fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${ process.env.CURRENCY_API_KEY }&symbols=USD,AUD,CAD,PLN,MXN`)
+  const { rates } = await currencyResp.json()
 
   const pokemons = results.map((pokemon, index) => {
     return {
@@ -63,15 +63,7 @@ export const getStaticProps = async (ctx) => {
     
   })
 
-  // const currency = {...rates, EUR: 1}
-  const currency = {
-    "USD": 1.082778,
-    "AUD": 1.459474,
-    "CAD": 1.365172,
-    "PLN": 4.641275,
-    "MXN": 21.65121,
-    "EUR": 1
-  }
+  const currency = {...rates, EUR: 1}
 
   return {
     props: {
